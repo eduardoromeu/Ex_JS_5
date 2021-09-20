@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Home</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.1.1/dist/cosmo/bootstrap.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+        <style>
+        </style>
+    </head>
+
+    <body class="bg-light" onload="OnLoad()">
+        <header class="container-fluid bg-light shadow-lg text-center p-2">
+            <h1>Formulário de Inscrição</h1>
+        </header>
+
+        <figure style="height: 240px; background: url(https://a-static.besthdwallpaper.com/fifa-18-estadio-de-futebol-papel-de-parede-1600x900-22015_47.jpg) fixed no-repeat center 140%; margin: 0;"></figure>
+
+        <main class="container-fluid bg-light text-center px-3 py-2">
+            <h2 class="border-bottom border-dark mt-0">Preencha abaixo algumas informações suas</h2>
+
+              <form class="row g-3 mb-4 needs-validation" id="formImc" novalidate>
+                <legend>Vamos calcular seu IMC para então prosseguir com a inscrição</legend>
+                <div class="col-md-4">
+                  <label for="heightInput" class="form-label">Altura (cm)</label>
+                  <input type="number" class="form-control shadow" id="heightInput" placeholder="Ex: 180" required min="0">
+                  <div class="invalid-feedback">
+                    Insira sua altura de maneira correta!
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <label for="weightInput" class="form-label">Peso (Kg)</label>
+                  <input type="number" class="form-control shadow" id="weightInput" placeholder="Ex: 70" required min="0">
+                  <div class="invalid-feedback">
+                    Insira seu peso de maneira correta!
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <label for="ageInput" class="form-label">Idade</label>
+                  <input type="number" class="form-control shadow" id="ageInput" placeholder="Ex: 18" required>
+                  <div class="invalid-feedback">
+                    Insira sua idade de maneira correta!
+                  </div>
+                </div>
+                <div class="col-12">
+                  <label for="imcInput" class="form-label w-100">Seu IMC</label>
+                  <input type="number" class="form-control text-center shadow" id="imcInput" disabled>
+                </div>
+                <div class="col-12">
+                  <button type="submit" class="btn btn-primary shadow" id="imcBtn" onclick="CalcImc()">Calcular meu IMC</button>
+                </div>
+              </form>
+              <form class="mb-2 needs-validation" id="formTraining" hidden novalidate>
+                <hr>
+                <legend>Parabéns, você possuí os requisitos necessários para continuar com a inscrição!<br>
+                Agora, responda mais algumas perguntas</legend>
+                <div class="row mb-3 justify-content-md-center">
+                    <div class="col-6">
+                        <label for="timesInput class="form-label">Quantas vezes você treina por semana?</label>
+                        <input type="number" class="form-control text-center shadow" id="timesInput" required>
+                    </div>
+                </div>
+                <div class="row mb-3 justify-content-md-center">
+                    <div class="col-6">
+                        <label for="minsInput" class="form-label">Aproximadamente, quantos minutos por sessão de treino?</label>
+                        <input type="number" class="form-control text-center shadow" id="minsInput" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary shadow" onclick="CalcTrain()">Avançar</button>
+                    </div>
+                </div>
+              </form>
+
+            <div class="modal fade" id="failModal" tabindex="-1" data-bs-backdrop="static" aria-labelledby="failModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="failModalLabel">Não é possível prosseguir</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <p class="my-0" id="failModalText"><strong>Infelizmente você não possuí os requisitos para prosseguir com a inscrição, por favor normalize sua forma física e volte a se inscrever.</strong></p>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary shadow" onclick="document.location.reload()" data-bs-dismiss="modal">Fechar</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="modal fade" id="nameModal" tabindex="-1" data-bs-backdrop="static" aria-labelledby="failModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="nameModalLabel">Parabéns!</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <form class="needs-validation" id="formName">
+                      <legend>Parabéns, você passou em todos os nossos testes, agora você fará um teste pessoal em nossa sede, favor
+                        comparecer ao endereço:<br> <strong>Rua dos Atletas, 43, Bairro do Futebol.</strong> <br> Nos vemos lá!</legend>
+                      <label for="nameInput" class="form-label">Insira seu nome</label>
+                      <input type="text" class="form-control shadow" id="nameInput" required>
+                      <div class="invalid-feedback">
+                        Insira seu nome para terminar a inscrição!
+                      </div>
+                    </form>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-success shadow" onclick="FinishSubscription()">Terminar Inscrição</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </main>
+
+        <script src="js/index.js"></script>
+    </body>
+</html>
